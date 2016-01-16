@@ -1,8 +1,10 @@
 import assert from 'assert';
 
-describe('Example', () => {
-    it('should do something', done => {
-        assert.equal(true, true);
-        done();
-    });
+import {render} from '../src/index.js';
+
+describe('Tumblate', () => {
+  it('should successfully render a correct template', done => {
+    assert.equal('', render('Hello world', {}));
+    done();
+  });
 });
