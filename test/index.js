@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import {render} from '../src/index.js';
+import {render} from '../src/index';
 
 describe('Tumblate', () => {
   it('should successfully render a correct template', done => {
