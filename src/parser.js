@@ -12,7 +12,8 @@ export default class Parser {
   tokenize(template) {
     let tokens = [],
         lastIndex = 0,
-        match, token;
+        match;
+
     while ((match = EXPR.exec(template)) !== null) {
       if (match.index !== lastIndex) {
         tokens.push({type: 'text', value: template.slice(lastIndex, match.index)});
