@@ -1,8 +1,6 @@
 const EXPR = /{([\s\S]+?)}/g;
 const BLOCK_START = 'block:';
 const BLOCK_END = '/block:';
-//const BLOCK_START_EXPR = /{block:([\s\S]+?)}/g;
-//const BLOCK_END_EXPR = /{\/block:([\s\S]+?)}/g;
 
 export class ParserError {
   constructor(message) {
