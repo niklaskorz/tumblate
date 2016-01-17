@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import Parser, {ParserError} from '../src/parser';
+import {Parser, ParserError} from '../src/parser';
 
 const template = 'This is a {block:blockExpr}{value}{/block:blockExpr} and a {block:someVar}conditional{/block:someVar}';
 const tokens = [{

@@ -11,7 +11,7 @@ export class ParserError {
   }
 }
 
-export default class Parser {
+export class Parser {
   constructor() {}
 
   // Tokenizes a raw Tumblr template
