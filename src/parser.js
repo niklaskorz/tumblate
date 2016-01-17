@@ -4,6 +4,13 @@ const BLOCK_END = '/block:';
 //const BLOCK_START_EXPR = /{block:([\s\S]+?)}/g;
 //const BLOCK_END_EXPR = /{\/block:([\s\S]+?)}/g;
 
+export class ParserError {
+  constructor(message) {
+    this.name = 'ParserError';
+    this.message = (message || '');
+  }
+}
+
 export default class Parser {
   constructor() {}
 
@@ -33,8 +40,34 @@ export default class Parser {
   }
 
   // Parses a raw Tumblr template
-  // Returns an AST
+  // Returns an abstract syntax tree
   parse(template) {
-      
+    let tokens = this.tokenize(template),
+        root = {type: 'root', children: []},
+        stack = [root],
+        level = 0;
+
+    for (let token of tokens) {
+      if (token.type === 'blockStart') {
+        stack[++level] = {type: 'block', value: token.value, children: []};
+      } else if (token.type === 'blockEnd') {
+        if (stack[level].type === 'root') {
+          throw new ParserError(`Tried closing block '${token.value}' while in root`);
+        }
+        if (token.value !== stack[level].value) {
+          throw new ParserError(`Tried closing block '${token.value}' while in '${stack[level].value}'`);
+        }
+        stack[level - 1].children.push(stack[level]);
+        stack[level--] = null;
+      } else {
+        stack[level].children.push(token);
+      }
+    }
+
+    if (level > 0) {
+      throw new ParserError(`Unclosed ${stack[level].type} '${stack[level].value}'`);
+    }
+
+    return root;
   }
 }
