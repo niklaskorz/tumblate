@@ -1,6 +1,6 @@
 {
   "name": "tumblate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A tumblr template rendering library",
   "keywords": ["tumblr", "template", "rendering", "library"],
   "main": "lib/index.js",
@@ -20,6 +20,9 @@
     "url": "https://github.com/niklaskorz/tumblate/issues"
   },
   "homepage": "https://github.com/niklaskorz/tumblate",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
