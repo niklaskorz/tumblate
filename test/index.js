@@ -12,10 +12,7 @@ describe('Tumblate', () => {
         fs.readFile('test/template/data.json', (err, dataSrc) => {
           assert.ifError(err);
           const data = JSON.parse(dataSrc);
-          const result = render(index, data);
-          console.log(result);
-          assert.equal(result, expected.toString('utf8'));
-
+          assert.equal(render(index, data), expected.toString('utf8'));
           done();
         });
       });
