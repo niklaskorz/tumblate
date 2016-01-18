@@ -2,9 +2,35 @@ import {Parser} from './parser';
 
 let parser = new Parser;
 
-function getProperty(scope, name) {
+class ScopeArray {
+  constructor(array) {
+    this.array = array;
+    this.index = 0;
+  }
+
+  next() {
+    const index = this.index + 1;
+    if (index < this.array.length) {
+      this.index = index;
+      return true;
+    }
+    return false;
+  }
+
+  hasProperty(name) {
+    return this.array[this.index].hasOwnProperty(name);
+  }
+
+  getProperty(name) {
+    return this.array[this.index][name];
+  }
+}
+
+function getProperty(scope, name, index) {
   for (let i = scope.length - 1; i >= 0; --i) {
-    if (scope && scope[i].hasOwnProperty(name)) {
+    if (scope[i] instanceof ScopeArray && scope[i].hasProperty(name)) {
+      return scope[i].getProperty(name);
+    } else if (scope[i] instanceof Object && scope[i].hasOwnProperty(name)) {
       return scope[i][name];
     }
   }
@@ -25,6 +51,11 @@ export class Template {
 
     while (level > 0 || indices[0] < stack[0].children.length) {
       if (indices[level] >= stack[level].children.length) {
+        if (scope[level] instanceof ScopeArray && scope[level].next()) {
+          indices[level] = 0;
+          continue;
+        }
+
         scope.pop();
         indices.pop();
         stack.pop();
@@ -40,8 +71,15 @@ export class Template {
         if (node.type === 'block' && value) {
           level += 1;
           stack.push(node);
-          indices.push(0)
-          scope.push((value instanceof Object) ? value : {});
+          indices.push(0);
+
+          if (value instanceof Array) {
+            scope.push(new ScopeArray(value));
+          } else if (value instanceof Object) {
+            scope.push(value);
+          } else {
+            scope.push(null);
+          }
         } else if (node.type === 'var') {
           result += value;
         }

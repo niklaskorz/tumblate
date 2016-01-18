@@ -21,7 +21,11 @@ const variable = {
   data: {someVar: 'Value'},
   result: 'Value',
 };
-const conditional = {};
+const array = {
+  template: 'My array: {block:MyArray}[Item: {Item}]{/block:MyArray}.',
+  data: {MyArray: [{Item: 'First'}, {Item: 'Second'}, {Item: 'Third'}]},
+  result: 'My array: [Item: First][Item: Second][Item: Third].'
+};
 
 describe('Template', () => {
   it('should successfully render text', done => {
@@ -36,7 +40,12 @@ describe('Template', () => {
 
     done();
   });
+  it('should successfully render arrays', done => {
+    let template = new Template(array.template);
+    assert.equal(template.render(array.data), array.result);
 
+    done();
+  });
   it('should successfully render templates', done => {
     let template = new Template(templateSrc);
     for (let i = 0; i < results.length; ++i) {
