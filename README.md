@@ -41,3 +41,8 @@ console.log(template.render(data));
 
 console.log(tumblate.render(templateSrc, data));
 ```
+
+## Missing features
+
+Tumblate is currently missing meta variables (i.e., user-definable variables like `{color:Content Background}`)
+and parameters (e.g., `{Likes limit="5" summarize="100" width="150"}`).
