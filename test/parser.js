@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import {Parser, ParserError} from '../src/parser';
 
-const template = 'This is a {block:blockExpr}{value}{/block:blockExpr} and a {block:someVar}conditional{/block:someVar}';
+const template = 'This is a {block:blockExpr}{value}{/block:blockExpr} and a {block:someVar}conditional{/block:someVar}.';
 const tokens = [{
   type: 'text',
   value: 'This is a ',
@@ -27,6 +27,9 @@ const tokens = [{
 }, {
   type: 'blockEnd',
   value: 'someVar',
+}, {
+  type: 'text',
+  value: '.',
 }];
 const ast = {
   type: 'root',
@@ -50,6 +53,9 @@ const ast = {
       type: 'text',
       value: 'conditional',
     }],
+  }, {
+    type: 'text',
+    value: '.',
   }],
 };
 

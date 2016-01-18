@@ -2,14 +2,14 @@ import assert from 'assert';
 
 import {Template} from '../src/template';
 
-const templateSrc = '{block:ShouldGreet}Welcome{block:PageTitle} to {PageTitle}{/block:PageTitle}. {/block:ShouldGreet}I hope you are enjoying your stay{block:You}, {Name}{/block:You}.';
-const results = [
+const blockTemplate = '{block:ShouldGreet}Welcome{block:PageTitle} to {PageTitle}{/block:PageTitle}. {/block:ShouldGreet}I hope you are enjoying your stay{block:You}, {Name}{/block:You}.';
+const blockResults = [
   'Welcome. I hope you are enjoying your stay, visitor.',
   'Welcome to my blog. I hope you are enjoying your stay.',
   'Welcome to my blog. I hope you are enjoying your stay, visitor.',
   'I hope you are enjoying your stay, visitor.',
 ];
-const data = [
+const blockData = [
   {ShouldGreet: true, You: {Name: 'visitor'}},
   {ShouldGreet: true, PageTitle: 'my blog'},
   {ShouldGreet: true, PageTitle: 'my blog', You: {Name: 'visitor'}},
@@ -46,10 +46,17 @@ describe('Template', () => {
 
     done();
   });
-  it('should successfully render templates', done => {
-    let template = new Template(templateSrc);
-    for (let i = 0; i < results.length; ++i) {
-      assert.equal(template.render(data[i]), results[i]);
+  it('should not render a falsy variable', done => {
+    let template = new Template('Hello {World}');
+    assert.equal(template.render(), 'Hello ');
+    assert.equal(template.render({World: null}), 'Hello ');
+
+    done();
+  });
+  it('should successfully render blocks', done => {
+    let template = new Template(blockTemplate);
+    for (let i = 0; i < blockResults.length; ++i) {
+      assert.equal(template.render(blockData[i]), blockResults[i]);
     }
 
     done();
