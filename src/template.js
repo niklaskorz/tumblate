@@ -26,7 +26,7 @@ class ScopeArray {
   }
 }
 
-function getProperty(scope, name, index) {
+function getProperty(scope, name) {
   for (let i = scope.length - 1; i >= 0; --i) {
     if (scope[i] instanceof ScopeArray && scope[i].hasProperty(name)) {
       return scope[i].getProperty(name);
