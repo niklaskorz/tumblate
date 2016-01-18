@@ -34,6 +34,12 @@ export class Parser {
       }
     }
 
+    if (lastIndex === 0) {
+      tokens.push({type: 'text', value: template});
+    } else if (lastIndex < template.length) {
+      tokens.push({type: 'text', value: template.slice(lastIndex)});
+    }
+
     return tokens;
   }
 
@@ -47,7 +53,8 @@ export class Parser {
 
     for (let token of tokens) {
       if (token.type === 'blockStart') {
-        stack[++level] = {type: 'block', value: token.value, children: []};
+        stack.push({type: 'block', value: token.value, children: []});
+        level += 1;
       } else if (token.type === 'blockEnd') {
         if (stack[level].type === 'root') {
           throw new ParserError(`Tried closing block '${token.value}' while in root`);
@@ -55,8 +62,7 @@ export class Parser {
         if (token.value !== stack[level].value) {
           throw new ParserError(`Tried closing block '${token.value}' while in '${stack[level].value}'`);
         }
-        stack[level - 1].children.push(stack[level]);
-        stack[level--] = null;
+        stack[--level].children.push(stack.pop());
       } else {
         stack[level].children.push(token);
       }
