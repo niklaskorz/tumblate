@@ -80,7 +80,7 @@ export class Template {
           } else {
             scope.push(null);
           }
-        } else if (node.type === 'var') {
+        } else if (node.type === 'var' && value) {
           result += value;
         }
       }
