@@ -1,5 +1,5 @@
-import {Parser} from './parser';
+import {Template} from './template';
 
 export function render(template, data) {
-  return '';
+  return new Template(template).render(data);
 }
