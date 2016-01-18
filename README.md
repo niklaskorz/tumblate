@@ -3,6 +3,10 @@
 A tumblr template rendering library.
 Written in ES2015 and without dependencies.
 
+## Why would I need this?
+
+You probably don't. Unless you're working on development tools for tumblr template development, like me.
+
 ## Installation
 
 Tumblate is available on npm. Just run:
