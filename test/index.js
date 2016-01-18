@@ -1,6 +1,7 @@
 import assert from 'assert';
 import fs from 'fs';
 
+import data from './template/data';
 import {render} from '../src/index';
 
 describe('Tumblate', () => {
@@ -9,12 +10,8 @@ describe('Tumblate', () => {
       assert.ifError(err);
       fs.readFile('test/template/expected.html', (err, expected) => {
         assert.ifError(err);
-        fs.readFile('test/template/data.json', (err, dataSrc) => {
-          assert.ifError(err);
-          const data = JSON.parse(dataSrc);
-          assert.equal(render(index, data), expected.toString('utf8'));
-          done();
-        });
+        assert.equal(render(index, data), expected.toString('utf8'));
+        done();
       });
     });
   });

@@ -1,4 +1,4 @@
-{
+export default {
   "Title": "Test Blog",
   "Favicon": "fav.ico",
   "RSS": "rss.xml",
