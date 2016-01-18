@@ -1,6 +1,6 @@
 {
   "name": "tumblate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A tumblr template rendering library",
   "keywords": ["tumblr", "template", "rendering", "library"],
   "main": "lib/index.js",
