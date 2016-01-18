@@ -1,3 +1,37 @@
-# Tumblate [![Build Status](https://travis-ci.org/niklaskorz/tumblate.svg?branch=master)](https://travis-ci.org/niklaskorz/tumblate)
+#Tumblate [![Build Status](https://travis-ci.org/niklaskorz/tumblate.svg?branch=master)](https://travis-ci.org/niklaskorz/tumblate)
 
-A tumblr template rendering library
+A tumblr template rendering library.
+Written in ES2015 and without dependencies.
+
+## Installation
+
+Tumblate is available on npm. Just run:
+
+  npm install --save tumblate
+
+## Examples
+
+There are two ways to get started, either by creating a reusable instance of
+the `Template` class or by using the `render` function.
+
+  templateSrc = 'Welcome to {Title}.{block:Description} It is about: {Description}{/block:Description} Have a nice day!'
+  data = {
+    Title: 'My Blog',
+    Description: 'Nothing special. Just random things.'
+  }
+
+  // ES2015
+  import {Template, render} from 'tumblate';
+  
+  let template = new Template(templateSrc);
+  console.log(template.render(data));
+
+  console.log(render(templateSrc, data));
+
+  // CommonJS
+  var tumblate = require('tumblate');
+
+  var template = new tumblate.Template(templateSrc);
+  console.log(template.render(data));
+
+  console.log(tumblate.render(templateSrc, data));
