@@ -1,7 +1,8 @@
 {
   "name": "tumblate",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "A tumblr template rendering library",
+  "keywords": ["tumblr", "template", "rendering", "library"],
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
@@ -9,8 +10,16 @@
     "pretest": "eslint src/*.js",
     "test": "nyc --require=babel-core/register mocha"
   },
-  "author": "Niklas Korz <korz.niklask@gmail.com>",
+  "author": "Niklas Korz <korz.niklask@gmail.com> (http://niklaskorz.de/)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niklaskorz/tumblate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niklaskorz/tumblate/issues"
+  },
+  "homepage": "https://github.com/niklaskorz/tumblate",
   "devDependencies": {
     "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
